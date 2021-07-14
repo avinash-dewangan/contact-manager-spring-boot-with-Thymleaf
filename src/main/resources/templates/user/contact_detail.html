@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="user/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${title}">contact details</title>
+</head>
+<body>
+
+	<section>
+
+		<div th:if="${contact}" class="card">
+			<div class="card-body">
+
+				<h1>Contact Detail</h1>
+
+				<div class="container text-center">
+					<img style="height: 200px; width: 200px"
+						th:if="${contact.cImage!=null}" src="" class="my_profile_picture"
+						th:src="@{'/img/'+${contact.cImage}}" alt="profile picture" />
+					<h3>
+						<span th:text="${contact.cName}"></span><span
+							th:text="' ( '+${contact.cNicName+' ) '}"></span>
+					</h3>
+
+
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">#ID</th>
+								<th scope="col">SCM<span th:text="${contact.cid}"></span></th>
+								
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">Email</th>
+								<td><span th:text="${contact.cEmail}"></span></td>
+								
+							</tr>
+							<tr>
+								<th scope="row">Phone</th>
+								<td><span th:text="${contact.cPhone}"></span></td>
+								
+							</tr>
+							
+							<tr>
+								<th scope="row">Work</th>
+								<td><span th:text="${contact.cWork}"></span></td>
+								
+							</tr>
+							
+							
+
+						</tbody>
+						
+						
+					</table>
+
+					<div class="description">
+						<h4>Description</h4>
+						<hr />
+						<th:block th:utext="${contact.description}"></th:block>
+
+<div class="container d-grid gap-2">
+								<a th:onclick="|deleteContact(${contact.cid})|" class="btn btn-danger btn-sm">Delete</a>
+								<button class="btn btn-secondary btn-sm">Update</button>
+							</div>
+							
+					</div>
+
+				</div>
+			</div>
+			
+		</div>
+<h3 th:if="${Permission}" class="text-center p-3 bg-danger text-white" >
+<span th:text="${Permission}"></span></h3>
+
+<h3 th:if="${NotFound}" class="text-center p-3 bg-info text-white" th:text="${NotFound}"><span th:text="${NotFound}"></span></h3>
+	</section>
+
+</body>
+</html>

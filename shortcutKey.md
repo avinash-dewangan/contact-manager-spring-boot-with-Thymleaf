@@ -1,0 +1,1 @@
+Toggle Word Wrap = Alt+Shift+Y

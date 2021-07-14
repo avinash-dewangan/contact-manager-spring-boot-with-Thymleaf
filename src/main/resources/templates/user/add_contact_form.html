@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="user/base::layout(~{::section})">
+	
+<head>
+<meta charset="UTF-8" />
+<title>User Dashboard</title>
+
+</head>
+<body>
+
+	<section>
+
+		<div class="card">
+
+			<div class="card-body">
+				
+				<div th:if="${session.message}"
+					th:classappend="${session.message.type}" class="alert" role="alert">
+					<p th:text="${session.message.content}"></p>
+					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+				</div>
+				
+				<h1 class="text-center">Add Contact</h1>
+
+				<div class="container-fluid mt-1">
+
+					<div class="col-md-10 offset-md-1">
+
+						<form action="#" th:object="${contact}"
+							enctype="multipart/form-data" method="post"
+							th:action="@{/user/process-contact}" class="mt-2">
+
+							<!-- first name  -->
+
+							<div class="input-group mb-3">
+								<span class="input-group-text" id="basic-addon1"><i
+									class="fa fa-plus"> </i></span> <input type="text" name="cName"
+									id="name" placeholder="Enter Name here" class="form-control" />
+							</div>
+
+							<!-- nic name -->
+							<div class="input-group mb-3">
+								<span class="input-group-text" id="basic-addon1"><i
+									class="fa fa-user-alt"> </i></span> <input type="text" name="cNicName"
+									id="cNicName" placeholder="Enter Nick Name here"
+									class="form-control" />
+							</div>
+
+
+							<!-- phone -->
+							<div class="input-group mb-3">
+								<span class="input-group-text" id="basic-addon1"><i
+									class="fa fa-phone"> </i></span> <input type="number" name="cPhone"
+									id="cPhone" placeholder="Enter phone number"
+									class="form-control" />
+							</div>
+
+
+							<!-- email -->
+							<div class="input-group mb-3">
+								<span class="input-group-text" id="basic-addon1">@</span> <input
+									type="email" name="cEmail" id="cEmail"
+									placeholder="Enter your email here" class="form-control" />
+							</div>
+
+
+							<!-- work filed -->
+							<div class="input-group mb-3">
+								<span class="input-group-text" id="basic-addon1"><i
+									class="fa fa-briefcase"> </i></span> <input type="text" name="cWork"
+									id="cWork" placeholder="Enter Work here" class="form-control" />
+							</div>
+
+							<!-- contact description filed -->
+							<div class="input-group mb-3">
+								<textarea rows="20" name="description" id="mytextarea"
+									placeholder="Enter your description" class="form-control"></textarea>
+							</div>
+
+
+
+							<!-- image -->
+							<div class="input-group mb-3">
+								<input type="file" name="profileImg" id="cImage"
+									class="form-control" />
+							</div>
+
+							<div class="container text-center">
+								<button class="btn btn-outline-primary">Save Contact</button>
+							</div>
+
+						</form>
+
+					</div>
+
+				</div>
+			</div>
+	<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+	
+    <script>
+                        CKEDITOR.replace( 'description' );
+                </script>
+		</div>
+
+	</section>
+
+</body>
+</html>

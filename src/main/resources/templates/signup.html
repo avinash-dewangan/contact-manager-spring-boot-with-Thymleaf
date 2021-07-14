@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Signup</title>
+</head>
+<body>
+
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+
+					<div class="my-card mt-3">
+
+						<div th:if="${session.message}"
+							th:classappend="${session.message.type}" class="alert"
+							role="alert">
+							<p th:text="${session.message.content}"></p>
+							<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+						</div>
+
+						<div class="contaner text-center">
+							<img class="" style="width: 100px"
+								th:src="@{/img/membership.png}" alt="" />
+						</div>
+
+
+						<h1 class="text-center">Register Here</h1>
+
+						<form novalidate="novalidate" action="#" th:action="@{/register}" method="post"
+							th:object="${user}">
+							<!-- name filed -->
+
+							<div class="mb-3">
+								<label for="name" class="form-label">Your Name</label> 
+								
+								<input
+									type="text" 
+									class="form-control" 
+									th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"
+									id="name"
+									aria-describedby="name" name="name"
+									placeholder="Please Enter Your Name" th:value="${user.name}"
+									 />
+									 <div class="invalid-feedback" th:each="e : ${#fields.errors('name')}" th:text="${e}" >
+									 
+									 </div>
+							</div>
+
+							<div class="mb-3">
+								<label for="email" class="form-label">Email</label> <input
+									type="email" class="form-control" id="email"
+									aria-describedby="email" name="email"
+									placeholder="Please Enter Your Email" th:value="${user.email}"
+									required />
+							</div>
+
+							<div class="mb-3">
+								<label for="password" class="form-label">Your Password</label> <input
+									type="password" class="form-control" id="password"
+									aria-describedby="password" name="password"
+									placeholder="Please Enter Your Password" required />
+							</div>
+
+							<div class="mb-3">
+								<label for="text" class="form-label">About</label>
+								<textarea cols="25" rows="5" class="form-control" id="about"
+									aria-describedby="about" name="about"
+									placeholder="Please enter about yourself"
+									th:value="${user.about}" required></textarea>
+							</div>
+
+							<div class="mb-3">
+								<input type="checkbox" class="form-check-input" id="agrement"
+									aria-describedby="agrement" name="agrement" /> <label
+									for="terms" class="form-label">Accept terms and
+									condtions</label>
+							</div>
+
+
+
+							<div class="conatiner d-grid gap-2">
+								<button type="submit" class="btn bg-primary text-white ">Submit</button>
+								<button type="reset" class="btn bg-warning text-white">Reset</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>
