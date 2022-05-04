@@ -1,22 +1,31 @@
 package com.avinash.scm.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import net.glxn.qrgen.core.image.ImageType;
+import net.glxn.qrgen.javase.QRCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.avinash.scm.entites.User;
 import com.avinash.scm.helper.Message;
 import com.avinash.scm.repository.UserRepository;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Objects;
 
 @Controller
 public class HomeController {
@@ -88,6 +97,23 @@ public class HomeController {
 	public String customLogin(Model model) {
 		model.addAttribute("title", "Login page");
 		return "login";
+	}
+
+	@GetMapping("/getCert")
+	public String get(Model model) {
+		URL basePath = Objects.requireNonNull(HomeController.class.getResource("/"));
+		String CertUrl="avinash";
+		ByteArrayOutputStream stream = QRCode.from(CertUrl)
+				.to(ImageType.JPG).stream();
+		byte[] bytes = stream.toByteArray();
+		String encodeBase64 = Base64.encode(bytes);
+
+		String imageUrl = "data:image/jpg;base64," + encodeBase64;
+		model.addAttribute("imageUrl", imageUrl);
+
+
+		return "certificate";
+		//<img src="data:image/jpg;base64,${image}"/>
 	}
 
 }

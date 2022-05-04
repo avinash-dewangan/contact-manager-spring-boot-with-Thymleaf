@@ -86,7 +86,7 @@ public class UserController {
 			// upload image and processing
 			if (!mfile.isEmpty()) {
 				// upload the file to folder
-				contact.setCImage(mfile.getOriginalFilename());
+				contact.setcImage(mfile.getOriginalFilename());
 
 				File savefile = new ClassPathResource("static/img").getFile();
 
@@ -96,7 +96,7 @@ public class UserController {
 
 				System.out.println("img upload");
 			} else {
-				contact.setCImage("contact.png");
+				contact.setcImage("contact.png");
 			}
 
 			contact.setUser(user);
@@ -159,7 +159,7 @@ public class UserController {
 
 				if (user.getId() == contact.getUser().getId()) {
 					model.addAttribute("contact", contact);
-					model.addAttribute("title", contact.getCName());
+					model.addAttribute("title", contact.getcName());
 
 				} else {
 					model.addAttribute("Permission", "You don't have permission to see this contact");
@@ -195,7 +195,7 @@ public class UserController {
 					// delete pic
 					// delete old pic
 					File deleteFile = new ClassPathResource("static/img").getFile();
-					File file1 = new File(deleteFile, contact.getCImage());
+					File file1 = new File(deleteFile, contact.getcImage());
 					file1.delete();
 
 					httpSession.setAttribute("message", new Message("Contact deleted successfully", "alert-success"));
@@ -237,7 +237,7 @@ public class UserController {
 				// rewrite
 				// delete old pic
 				File deleteFile = new ClassPathResource("static/img").getFile();
-				File file1 = new File(deleteFile, oldContact.getCImage());
+				File file1 = new File(deleteFile, oldContact.getcImage());
 				file1.delete();
 
 				// update new pic
@@ -248,10 +248,10 @@ public class UserController {
 
 				Files.copy(mfile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
-				contact.setCImage(mfile.getOriginalFilename());
+				contact.setcImage(mfile.getOriginalFilename());
 
 			} else {
-				contact.setCImage(oldContact.getCImage());
+				contact.setcImage(oldContact.getcImage());
 			}
 
 			User user = this.userRepository.getUserByUserName(principal.getName());

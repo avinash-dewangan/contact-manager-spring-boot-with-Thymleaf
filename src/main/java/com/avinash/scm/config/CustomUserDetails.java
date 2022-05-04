@@ -11,14 +11,18 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.avinash.scm.entites.User;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
 public class CustomUserDetails implements UserDetails {
 
 	private User user;
+	public CustomUserDetails() {
+
+	}
+
+
+	public CustomUserDetails(User user) {
+		this.user = user;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
